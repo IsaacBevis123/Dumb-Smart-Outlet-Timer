@@ -28,7 +28,7 @@ The outlet timer can be configured by typing in the Pico's IP address in the URL
     - Overrides current on/off state 
     - Does not stop timer, timer will continue its programmed schedule 
 
-<img src="./Images/interface.jpg">
+<img src="./Images/interface.jpg" width="260">
 
 ## HTTP String Queries
 The outlet timer can also be configured by sending an http string query to the Pico, so it can be set up to be configured by an external source, such as a custom smart home installation. However loading settings relies on recieving a response with the loaded data to then apply, so it may take extra configurating to make that part work.
@@ -79,8 +79,12 @@ or: `reload=true`
 - (2) colored LEDs
 - (2) 220 - 500 ohm resistors
 - A fuze and fuze holder (use one that is the same or less amperage than your relay can handle)
+    - My relay is rated for 10 amps at 120volts so I used a 10 amp fuze.
 - Old power surge protector (doesn't have to work, but make sure it is big enough to fit all parts inside)
-- Sacraficial 5volt charger
+- Sacraficial wall charger
+    - Be sure it can supply a variable load at steady voltage 
+    - the Pico's onboard power circut can handle anywhere from 1.8v to 5.5v
+    - Note: add a Schottky diode if you plan on having both usb power and VSYS power feeding simultaniously 
 - A few feet of medium guage wire
     - make sure it is the correct guage, rated for at least the same amperage as the fuze and relay
     - idealy in black, white, and green for North American standard
@@ -97,7 +101,37 @@ or: `reload=true`
 5. (Optional) Configure your router settings to set the Pico's new IP to be static. This will allow the Pico to retain the same ip indefinetly.
 
 ## Assembly
+### High voltage side
+Live wire connects to 10 amp glass fuze, on the other side of fuze, live connects to three locations:
 
+1. Always on outlet live bar
+2. Pin one on 120volt side of dissassembled 5volt charger
+3. Normally open pin one of 120volt relay
+
+Ground wire connects to ground bar at number 4, both ground bars are tied together (number 6).
+
+Normally open pin two is connected to switched live bars (number 7).
+
+Neutral connects to first nuetral bar (number 5), the two neutral bars are tied together (number 8) pin two on 120volt side of dissassembled 5volt charger is also tied in here.
+
+### Low voltage side
+1. +5v from 5volt charger is connected to VSYS (pin 39) on Pico. 
+    - Add a Schottky diode here to safley use both usb power and VSYS power at the same time, however it is fine without it if your 5volt charger can handle backfeeding power and you are not using them simultaniously.
+2. Ground from 5volt charger is connected to any ground pin on Pico.
+3. +3.3v from Pico's 3v3 pin (pin 36) is connected to Vcc on relay control pins.
+4. GPIO Pin 13 is connected to control pin on relay.
+5. Relay ground pin is connected to any ground pin on Pico.
+6. GPIO Pin 6 is connected through 220ohm resistor to anode of Status LED
+    - Status LED is ON when relay is closed.
+7. GPIO Pin 22 is connected through 220ohm resistor to anode of Error LED.
+8. Cathodes of both leds are tied together and connected to any ground pin on Pico.
+
+<img src="./Images/assembly-marked.jpg" width="1000">
+
+### My compleated build
+The old surge protector I used has two oulets labeled "always on" so I retained that by bypassing the relay for those, the rest of the outlets all work controlled by relay and Pico W. I chose this perticular surge protector because it was large enough to house everything inside and it experienced its final surge and no longer worked as a surge protector anyway.
+
+<img src="./Images/complete.jpg" width="1000">
 
 
 ## Error Codes
