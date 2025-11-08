@@ -55,7 +55,7 @@ or `0.0.0.0/?submit=load` if loading data
     - submit=save will apply and save the settings to file on Pico's persistant storage
     - submit=submit will just apply settings
     - submit=load will load the saved data and return it in response to client
-        - note: known issue, if you submit a long query as a load such as `0.0.0.0/?timezone=-7&turnon_time=08%3A00&turnoff_time=20%3A00&submit=load` some unexpected behavior may arrise
+        - note: all other queries are ignored in a load `0.0.0.0/?timezone=-7&turnon_time=08%3A00&turnoff_time=20%3A00&submit=load` does the same thing as `0.0.0.0/?submit=load`
 
 ### Other queries
 Other queries should be used independently.

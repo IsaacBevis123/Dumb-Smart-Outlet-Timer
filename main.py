@@ -209,6 +209,12 @@ def handle_client_request(request):
     list_vars = str_vars.split('&')
     print("req_vars: " + str(list_vars))
     
+    # if final request is submit load, ignore other queries
+    if 'submit=load' in list_vars[-1]:
+        # load settings from persistant storage
+        load_data()
+        return
+    
     for req in list_vars:
         
         # Handle set timezone
@@ -251,9 +257,6 @@ def handle_client_request(request):
             elif submit[1] == "save":
                 # save settings to persistant storage
                 save_data()
-            elif submit[1] == "load":
-                # load settings from persistant storage
-                load_data()
                 
         
         # Handle reload request
@@ -424,7 +427,7 @@ while max_wait > 0:
 # Handle connection error
 if wlan.status() != 3:
     print(wlan.status())
-    show_error(8, 999)
+    show_error(8, -1)
 else:
     print('Connected')
     status = wlan.ifconfig()
@@ -440,7 +443,7 @@ try:
     s.listen(1)
     print('listening on', addr)
 except OSError as e:
-    show_error(6, 999)
+    show_error(6, -1)
 
 reload_time()
 
