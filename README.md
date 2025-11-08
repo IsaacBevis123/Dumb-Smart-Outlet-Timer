@@ -4,10 +4,12 @@ A DIY outlet timer for a Raspberry Pi Pico W, written in MicroPython.
 ## Disclaimers
 I am not an electrical engineer [assembly instructions](#assembly) are not intended to be a strict step-by-step tutorial, it is just a what I did.
 
+I made this in a single weekend so there might be some edge case errors not accounted for, open issue ticket and I might fix it if I get the time, or submit a pull request.
+
 No generative AI was used in the creation of this code or device, support real human work.
 
 ## Introduction
-The Dumb Smart Outlet Timer is an outlet timer that is controlled with a Raspberry Pi Pico W. This is intended to be a cheap WiFi controlled timer that does not interface with a smart-home or require a propietary app to function (hence the dumb-smart). However it is configured via [http string queries](#http-string-queries) so it would be pretty easy to make it work with an app or smart-home setup. 
+The Dumb Smart Outlet Timer is an outlet timer that is controlled with a Raspberry Pi Pico W. This is intended to be a cheap WiFi controlled timer that does not interface with a smart-home or require a proprietary app to function (hence the dumb-smart). However it is configured via [http string queries](#http-string-queries) so it would be pretty easy to make it work with an app or smart-home setup. 
 
 ## Configuration
 The outlet timer can be configured by typing in the Pico's IP address in the URL bar on your browser (designed to fit on a phone screen). 
@@ -20,7 +22,7 @@ The outlet timer can be configured by typing in the Pico's IP address in the URL
 - Submit:
     - Applies current settings to Pico timer
 - Save:
-    - Saves current settings to Pico's internal persistant storage
+    - Saves current settings to Pico's internal persistent storage
 - Load:
     - Loads saved settings 
     - note: does not apply them automatically, hit submit after to apply.
@@ -31,7 +33,7 @@ The outlet timer can be configured by typing in the Pico's IP address in the URL
 <img src="./Images/interface.jpg" width="260">
 
 ## HTTP String Queries
-The outlet timer can also be configured by sending an http string query to the Pico, so it can be set up to be configured by an external source, such as a custom smart home installation. However loading settings relies on recieving a response with the loaded data to then apply, so it may take extra configurating to make that part work.
+The outlet timer can also be configured by sending an http string query to the Pico, so it can be set up to be configured by an external source, such as a custom smart home installation. However loading settings relies on receiving a response with the loaded data to then apply, so it may take extra configuration to make that part work.
 
 ### Main config queries 
 The main config queries should be chained together with submit at the end. 
@@ -81,17 +83,17 @@ or: `reload=true`
     - <img src="./Images/Relay.jpg" width="300">
 - (2) colored LEDs
 - (2) 220 - 500 ohm resistors
-- A fuze and fuze holder (use one that is the same or less amperage than your relay can handle)
-    - My relay is rated for 10 amps at 120volts so I used a 10 amp fuze.
+- A fuse and fuse holder (use one that is the same or less amperage than your relay can handle)
+    - My relay is rated for 10 amps at 120volts so I used a 10 amp fuse.
 - Old power surge protector (doesn't have to work, but make sure it is big enough to fit all parts inside)
-- Sacraficial wall charger
+- Sacrificial wall charger
     - Be sure it can supply a variable load at steady voltage 
-    - the Pico's onboard power circut can handle anywhere from 1.8v to 5.5v
-    - Note: add a Schottky diode if you plan on having both usb power and VSYS power feeding simultaniously 
-- A few feet of medium guage wire
-    - make sure it is the correct guage, rated for at least the same amperage as the fuze and relay
-    - idealy in black, white, and green for North American standard
-- Smaller guage wire
+    - the Pico's onboard power circuit can handle anywhere from 1.8v to 5.5v
+    - Note: add a Schottky diode if you plan on having both usb power and VSYS power feeding simultaneously 
+- A few feet of medium gauge wire
+    - make sure it is the correct gauge, rated for at least the same amperage as the fuse and relay
+    - ideally in black, white, and green for North American standard
+- Smaller gauge wire
 - Solder
 - Heat shrink
 - Soldering Iron
@@ -101,25 +103,25 @@ or: `reload=true`
 2. Using your IDE of choice ([Thonny](https://thonny.org/) is a great beginner friendly option), open main.py and enter your WiFi credentials in the correct spots at the top of the file.
 3. Save file to Raspberry Pi Pico W's internal storage, also open and save index.html and error.html
 4. Run it from IDE to make sure it connects to your WiFi and get it's IP.
-5. (Optional) Configure your router settings to set the Pico's new IP to be static. This will allow the Pico to retain the same ip indefinetly.
+5. (Optional) Configure your router settings to set the Pico's new IP to be static. This will allow the Pico to retain the same ip indefinitely.
 
 ## Assembly
 ### High voltage side
-Live wire connects to 10 amp glass fuze, on the other side of fuze, live connects to three locations:
+Live wire connects to 10 amp glass fuse, on the other side of fuse, live connects to three locations:
 
 1. Always on outlet live bar
-2. Pin one on 120volt side of dissassembled 5volt charger
+2. Pin one on 120volt side of disassembled 5volt charger
 3. Normally open pin one of 120volt relay
 
 Ground wire connects to ground bar at number 4, both ground bars are tied together (number 6).
 
 Normally open pin two is connected to switched live bars (number 7).
 
-Neutral connects to first nuetral bar (number 5), the two neutral bars are tied together (number 8) pin two on 120volt side of dissassembled 5volt charger is also tied in here.
+Neutral connects to first neutral bar (number 5), the two neutral bars are tied together (number 8) pin two on 120volt side of disassembled 5volt charger is also tied in here.
 
 ### Low voltage side
 1. +5v from 5volt charger is connected to VSYS (pin 39) on Pico. 
-    - Add a Schottky diode here to safley use both usb power and VSYS power at the same time, however it is fine without it if your 5volt charger can handle backfeeding power and you are not using them simultaniously.
+    - Add a Schottky diode here to safely use both usb power and VSYS power at the same time, however it is fine without it if your 5volt charger can handle back-feeding power and you are not using them simultaneously.
 2. Ground from 5volt charger is connected to any ground pin on Pico.
 3. +3.3v from Pico's 3v3 pin (pin 36) is connected to Vcc on relay control pins.
 4. GPIO Pin 13 is connected to control pin on relay.
@@ -131,8 +133,8 @@ Neutral connects to first nuetral bar (number 5), the two neutral bars are tied 
 
 <img src="./Images/assembly-marked.jpg" width="1000">
 
-### My compleated build
-The old surge protector I used has two oulets labeled "always on" so I retained that by bypassing the relay for those, the rest of the outlets all work controlled by relay and Pico W. I chose this perticular surge protector because it was large enough to house everything inside and it experienced its final surge and no longer worked as a surge protector anyway.
+### My completed build
+The old surge protector I used has two oulets labeled "always on" so I retained that by bypassing the relay for those, the rest of the outlets all work controlled by relay and Pico W. I chose this particular surge protector because it was large enough to house everything inside and it experienced its final surge and no longer worked as a surge protector anyway.
 
 <img src="./Images/complete.jpg" width="1000">
 
@@ -140,11 +142,11 @@ The old surge protector I used has two oulets labeled "always on" so I retained 
 ## Error Codes
 The error LED will flash a set number of times, then pause for 2 seconds, then repeat if there is a problem during bootup.
 
-|            LED Flash          |               Problem               |                      Solution                     |
-| ----------------------------- | ----------------------------------- | ------------------------------------------------- |
-| 4 flashes, repeat indefinetly |      Failed to connect to WiFi      |      Varify WiFi SSID and password and reboot     |
-| 3 flashes, repeat indefinetly |    Failed to open socket server     |                  Reboot device                    |
-|   2 flashes, repeat 2 times   | Failed to sync time with NTP server | Connect to Pico and send reload=true string query |
+|            LED Flash           |               Problem               |                      Solution                     |
+| ------------------------------ | ----------------------------------- | ------------------------------------------------- |
+| 4 flashes, repeat indefinitely |      Failed to connect to WiFi      |      Verify WiFi SSID and password and reboot     |
+| 3 flashes, repeat indefinitely |    Failed to open socket server     |                  Reboot device                    |
+|   2 flashes, repeat 2 times    | Failed to sync time with NTP server | Connect to Pico and send reload=true string query |
 
 Example of NTP Server error. To send reload=true string query press the reload NTP time red button.
 
