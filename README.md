@@ -145,3 +145,7 @@ The error LED will flash a set number of times, then pause for 2 seconds, then r
 | 4 flashes, repeat indefinetly |      Failed to connect to WiFi      |      Varify WiFi SSID and password and reboot     |
 | 3 flashes, repeat indefinetly |    Failed to open socket server     |                  Reboot device                    |
 |   2 flashes, repeat 2 times   | Failed to sync time with NTP server | Connect to Pico and send reload=true string query |
+
+Example of NTP Server error. To send reload=true string query press the reload NTP time red button.
+
+<img src="./Images/error2-2.jpg" width="300">
