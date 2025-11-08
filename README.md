@@ -33,7 +33,7 @@ The outlet timer can be configured by typing in the Pico's IP address in the URL
 ## HTTP String Queries
 The outlet timer can also be configured by sending an http string query to the Pico, so it can be set up to be configured by an external source, such as a custom smart home installation. However loading settings relies on recieving a response with the loaded data to then apply, so it may take extra configurating to make that part work.
 
-#### Main config queries 
+### Main config queries 
 The main config queries should be chained together with submit at the end. 
 
 Example: `0.0.0.0/?timezone=-7&turnon_time=07%3A30&turnoff_time=22%3A30&submit=submit `
@@ -57,7 +57,7 @@ or `0.0.0.0/?submit=load` if loading data
     - submit=load will load the saved data and return it in response to client
         - note: known issue, if you submit a long query as a load such as `0.0.0.0/?timezone=-7&turnon_time=08%3A00&turnoff_time=20%3A00&submit=load` some unexpected behavior may arrise
 
-#### Other queries
+### Other queries
 Other queries should be used independently.
 
 Example: `0.0.0.0/?relay=on`
@@ -76,10 +76,15 @@ or: `reload=true`
 ## Required Parts
 - Raspberry Pi Pico W (Flashed with MicroPython version 1.26.1)
 - A 3v relay that can switch 120v
+- (2) colored LEDs
+- (2) 220 - 500 ohm resistors
 - A fuze and fuze holder (use one that is the same or less amperage than your relay can handle)
 - Old power surge protector (doesn't have to work, but make sure it is big enough to fit all parts inside)
 - Sacraficial 5volt charger
-- Wire (make sure it is the correct guage, rated for at least the same amperage as the fuze and relay)
+- A few feet of medium guage wire
+    - make sure it is the correct guage, rated for at least the same amperage as the fuze and relay
+    - idealy in black, white, and green for North American standard
+- Smaller guage wire
 - Solder
 - Heat shrink
 - Soldering Iron
@@ -96,4 +101,10 @@ or: `reload=true`
 
 
 ## Error Codes
+The error LED will flash a set number of times, then pause for 2 seconds, then repeat if there is a problem during bootup.
 
+|            LED Flash          |               Problem               |                      Solution                     |
+| ----------------------------- | ----------------------------------- | ------------------------------------------------- |
+| 4 flashes, repeat indefinetly |      Failed to connect to WiFi      |      Varify WiFi SSID and password and reboot     |
+| 3 flashes, repeat indefinetly |    Failed to open socket server     |                  Reboot device                    |
+|   2 flashes, repeat 2 times   | Failed to sync time with NTP server | Connect to Pico and send reload=true string query |
