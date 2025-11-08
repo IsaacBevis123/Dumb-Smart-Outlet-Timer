@@ -391,6 +391,7 @@ def get_response():
 # flashes error led a number of times equal to code/2 then pauses for 2 seconds
 # ends after repeating this t times
 def show_error(code, t):
+    print("Error code: " + str(code//2) + " flashes, repeating " + str(t) + " times")
     error_led.value(0)
     flash_count = 0
     nt = t
