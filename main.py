@@ -318,7 +318,7 @@ def get_time():
     print("Local time: " + str(actual_time))
     
     formatted_time = ""
-    hrs = 12 if actual_time[3] == 0 else (actual_time[3] if actual_time[3] < 12 else actual_time[3] % 12)
+    hrs = 12 if actual_time[3] == 0 else (actual_time[3] if actual_time[3] <= 12 else actual_time[3] % 12)
     str_min = "0" + str(actual_time[4]) if actual_time[4] < 10 else str(actual_time[4])
     str_sec = "0" + str(actual_time[5]) if actual_time[5] < 10 else str(actual_time[5])
     mark = "AM" if actual_time[3] < 12 else "PM"
