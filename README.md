@@ -74,8 +74,11 @@ or: `reload=true`
 
 
 ## Required Parts
-- Raspberry Pi Pico W (Flashed with MicroPython version 1.26.1)
+- Raspberry Pi Pico W (Flashed with MicroPython version 1.26.1):
+    - <img src="./Images/PicoW.jpg" width="300">
 - A 3v relay that can switch 120v
+    - I used this one which can be found for a few dollars on aliexpress or amazon: 
+    - <img src="./Images/Relay.jpg" width="300">
 - (2) colored LEDs
 - (2) 220 - 500 ohm resistors
 - A fuze and fuze holder (use one that is the same or less amperage than your relay can handle)
